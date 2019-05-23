@@ -1,14 +1,17 @@
+let play = true;
 let spikes_array = [];
 let x = 0; // spikes
 let y; // spikes
 let size = 20; // spikes
 let bird;
 let spikes = [];
+let button;
 
 function setup() {
     createCanvas(400, 600);
     bird = new Bird();
     
+    button = createButton('click to play');
     let x = 0;
     let y = 0;
 
@@ -17,11 +20,14 @@ function setup() {
         spikes[o + 1] = new spike(x, height, -size);
         x += size;
     }
+    button.mousePressed(myFunction);
 }
 
 function draw() {
     background(0);
     
+    myFunction();
+
     bird.appear();
     bird.move(spikes_array);
 
@@ -29,6 +35,7 @@ function draw() {
         spikes[o].avarage();
         if (bird.y - bird.radius < size || bird.y + bird.radius > height - size) {
             output();
+            noLoop();
         }
     }
 
@@ -37,6 +44,7 @@ function draw() {
         if (bird.x >= width - bird.radius || bird.x <= bird.radius) {
             if (bird.y + bird.radius >= spikes_array[q].y && bird.y - bird.radius <= spikes_array[q].y + size) {
                 output();
+                noLoop();
             }
         }
     }
@@ -44,8 +52,19 @@ function draw() {
 }
 
 function output() {
-    alert("u lost");
+    print("u lost");
 }
-function mousePressed() {
+
+function keyPressed() {
     bird.up();
+}
+
+function myFunction() {
+    if (button.mousePressed(myFunction)) {
+        play != play
+    }
+
+    if (play) {
+        noLoop();
+    }
 }
