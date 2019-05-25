@@ -13,7 +13,9 @@ function setup() {
 
     start = createButton('click to play');
     start.position(width, height);
-    start.mouseClicked(change);
+    start.mouseClicked(function change() {
+        play = true;
+    });
     let x = 0;
     let y = 0;
 
@@ -26,16 +28,7 @@ function setup() {
 
 function draw() {
     if (play) {
-        hm();
-    }
-}
-
-function change() {
-    play = true;
-}
-
-function hm() {
-    background(0);
+        background(0);
 
     bird.appear();
     bird.move(spikes_array);
@@ -56,6 +49,7 @@ function hm() {
                 noLoop();
             }
         }
+    }
     }
 }
 
