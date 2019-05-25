@@ -1,17 +1,19 @@
-let play = true;
+let play = false;
 let spikes_array = [];
 let x = 0; // spikes
 let y; // spikes
 let size = 20; // spikes
 let bird;
 let spikes = [];
-let button;
+let start;
 
 function setup() {
     createCanvas(400, 600);
     bird = new Bird();
-    
-    button = createButton('click to play');
+
+    start = createButton('click to play');
+    start.position(width, height);
+    start.mouseClicked(change);
     let x = 0;
     let y = 0;
 
@@ -20,13 +22,20 @@ function setup() {
         spikes[o + 1] = new spike(x, height, -size);
         x += size;
     }
-    button.mousePressed(myFunction);
 }
 
 function draw() {
+    if (play) {
+        hm();
+    }
+}
+
+function change() {
+    play = true;
+}
+
+function hm() {
     background(0);
-    
-    myFunction();
 
     bird.appear();
     bird.move(spikes_array);
@@ -48,7 +57,6 @@ function draw() {
             }
         }
     }
-    
 }
 
 function output() {
@@ -57,14 +65,4 @@ function output() {
 
 function keyPressed() {
     bird.up();
-}
-
-function myFunction() {
-    if (button.mousePressed(myFunction)) {
-        play != play
-    }
-
-    if (play) {
-        noLoop();
-    }
 }
