@@ -7,7 +7,7 @@ let bird;
 let spikes = [];
 let start;
 let restart;
-let not_play = true;
+let stop = true;
 
 function setup() {
     createCanvas(400, 600);
@@ -19,7 +19,7 @@ function setup() {
     start.position(width + 8, height);
     restart.position(width + 8, height - 20);
     start.mouseClicked(() => play = true);
-    restart.mouseClicked(reset);
+    restart.mouseClicked(reset, mousePressed);
     let x = 0;
     let y = 0;
     
@@ -28,40 +28,49 @@ function setup() {
         spikes[o + 1] = new spike(x, height, -size);
         x += size;
     }
+    textSize(50);
+    textAlign(CENTER);
 }
 
 function reset() {
     bird = new Bird(width / 2, height / 2);
-    not_play = !not_play;
 }
-function looping() {
-    not_play ? false : noLoop();
+
+function mousePressed() {
+    loop();
 }
 
 function draw() {
+    
     if (play) {
         background(0);
         
-    bird.appear();
-    bird.move(spikes_array);
+        fill(212, 225, 87);
+        noStroke();
+        circle(width / 2, height / 2, 100);
+        fill(0);
+        text(bird.counter, width / 2, height / 2);
+            
+        bird.appear();
+        bird.move(spikes_array);
 
-    for (let o = 0; o < spikes.length; o++) {
-        spikes[o].avarage();
-        if (bird.y - bird.radius < size || bird.y + bird.radius > height - size) {
-            output();
-            looping();
-        }
-    }
-
-    for (let q = 0; q < spikes_array.length; q++) {
-        bird.m_x < 0 ?  spikes_array[q].left_spikes() : spikes_array[q].right_spikes();
-        if (bird.x >= width - bird.radius || bird.x <= bird.radius) {
-            if (bird.y + bird.radius >= spikes_array[q].y && bird.y - bird.radius <= spikes_array[q].y + size) {
+        for (let o = 0; o < spikes.length; o++) {
+            spikes[o].avarage();
+            if (bird.y - bird.radius < size || bird.y + bird.radius > height - size) {
                 output();
-                looping();
+                noLoop();
             }
         }
-    }
+
+        for (let q = 0; q < spikes_array.length; q++) {
+            bird.m_x < 0 ?  spikes_array[q].left_spikes() : spikes_array[q].right_spikes();
+            if (bird.x >= width - bird.radius || bird.x <= bird.radius) {
+                if (bird.y + bird.radius >= spikes_array[q].y && bird.y - bird.radius <= spikes_array[q].y + size) {
+                    output();
+                    noLoop();
+                }
+            }
+        }
     }
 }
 

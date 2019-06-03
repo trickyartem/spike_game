@@ -7,6 +7,7 @@ class Bird {
         this.lift = -30;
         this.velocity = 0;
         this.m_x = 3;
+        this.counter = 0;
     }
 
     move(spikes_array) {
@@ -19,6 +20,7 @@ class Bird {
                 y = random(size, width - size * 2);
                 spikes_array[q] = new spike(x, y, size);
             }
+            this.counter++;
         }
         this.x += this.m_x;   
     }
@@ -29,7 +31,7 @@ class Bird {
 
     appear() {
         noStroke();
-        fill(225);
+        fill(233, 30, 99);
         circle(this.x, this.y, this.radius * 2);
     }
 }
