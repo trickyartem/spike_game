@@ -18,8 +18,8 @@ function setup() {
     start = createButton('click to play');
     start.position(width + 8, height);
     restart.position(width + 8, height - 20);
-    start.mouseClicked(() => play = true);
-    restart.mouseClicked(reset, mousePressed);
+    start.mousePressed(() => play = true);
+    restart.mousePressed(reset, mousePressed);
     let x = 0;
     let y = 0;
     
@@ -75,7 +75,11 @@ function draw() {
 }
 
 function output() {
-    print("u lost");
+    background(0);
+
+    fill(0, 100, 100);
+    text("you lost", width / 2, height / 2);
+    text("score is " + bird.counter, width / 2, height / 4);
 }
 
 function keyPressed() {
